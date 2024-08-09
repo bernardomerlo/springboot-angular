@@ -19,4 +19,26 @@ export class ClienteService {
       })
     );
   }
+
+  cadastra(cliente: Cliente): Observable<Cliente> {
+    return this.http.post<Cliente>(this.url, cliente).pipe(
+      catchError((error) => {
+        console.error('Error creating client:', error);
+        return throwError(() => new Error('Error creating client'));
+      })
+    );
+  }
+
+  editar(cliente: Cliente): Observable<Cliente> {
+    return this.http.put<Cliente>(this.url, cliente).pipe(
+      catchError((error) => {
+        console.error('Error updating client:', error);
+        return throwError(() => new Error('Error updating client'));
+      })
+    );
+  }
+
+  remover(codigo: number): Observable<void> {
+    return this.http.delete<void>(this.url + '/' + codigo);
+  }
 }
